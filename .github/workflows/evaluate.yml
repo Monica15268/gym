@@ -20,7 +20,7 @@ jobs:
       - name: Checkout Judge Infrastructure
         uses: actions/checkout@v4
         with:
-          repository: matcom/matcom-judge
+          repository: matcom/judge
           token: ${{ secrets.JUDGE_ACCESS_TOKEN }}
           path: judge-repo
 
