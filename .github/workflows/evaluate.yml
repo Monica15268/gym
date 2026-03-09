@@ -11,6 +11,15 @@ jobs:
       pull-requests: write
       contents: read
     steps:
+      - name: Debug Secret
+        run: |
+          if [ -z "${{ secrets.JUDGE_ACCESS_TOKEN }}" ]; then
+            echo "ERROR: JUDGE_ACCESS_TOKEN is missing!"
+            exit 1
+          else
+            echo "JUDGE_ACCESS_TOKEN is present (masked)."
+          fi
+
       - name: Checkout Student Code
         uses: actions/checkout@v4
         with:
