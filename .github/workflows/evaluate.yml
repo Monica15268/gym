@@ -1,0 +1,59 @@
+name: Teacher Evaluation
+on:
+  pull_request_target:
+    branches: [ main ]
+    types: [ opened, synchronize ]
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Student Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: student-repo
+
+      - name: Checkout Judge Infrastructure
+        uses: actions/checkout@v4
+        with:
+          repository: matcom/matcom-judge
+          token: ${{ secrets.JUDGE_ACCESS_TOKEN }}
+          path: judge-repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Sync Student Code and Run Tests
+        working-directory: judge-repo
+        run: |
+          # Mirror student code into the judge's solutions/exercises structure
+          # First ensure the target directory exists
+          mkdir -p solutions/exercises
+          # Use cp -r to copy all exercises from student repo
+          cp -rv ../student-repo/exercises/* solutions/exercises/
+          
+          # Generate test cases (idempotent)
+          uv run make generate
+          
+          # Run private tests using the grader and capture markdown output
+          uv run python src/gymnasium/grader.py --student solutions/exercises --output-format markdown > ../evaluation_summary.md
+
+      - name: Post Comment on PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('evaluation_summary.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            })
