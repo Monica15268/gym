@@ -20,4 +20,4 @@ jobs:
       - name: Run Public Tests
         run: |
           # Tests automatically skip if SUBMIT = False in solution.py
-          pytest tests/
+          PYTHONPATH=. pytest tests/
