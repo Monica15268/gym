@@ -1,5 +1,7 @@
 # Exercise: Fibonacci Numbers
 
+*[Leer en Español](README.es.md)*
+
 ## Background/Motivation
 
 The Fibonacci sequence is one of the most famous sequences in mathematics. It appears in nature, art, and architecture, and is a fundamental example of recursion and iterative growth in computer science. Understanding how to generate this sequence is a core skill for any programmer.
@@ -38,4 +40,4 @@ Implement a function `fibonacci(n: int) -> int` that calculates the $n$-th numbe
 1. Open `exercises/fibonacci/solution.py`.
 2. Implement the `fibonacci` function.
 3. Change `SUBMIT = False` to `SUBMIT = True` at the top of the file when you are ready to be graded.
-4. Run `make test` locally to verify your solution.
+4. Run `python solution.py` locally to verify your solution with the built-in self-tests.

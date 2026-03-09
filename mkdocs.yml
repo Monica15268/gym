@@ -12,6 +12,17 @@ theme:
     - navigation.sections
     - content.code.copy
 
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: en
+          name: English
+          default: true
+        - locale: es
+          name: Español
+
 nav:
   - Home: index.md
   - Exercises: exercises.md

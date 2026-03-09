@@ -1,7 +1,7 @@
 SUBMIT = False
 
 
-def fibonacci(n: int) -> int:
+def fibonacci(n: int) -> int:  # noqa: ARG001
     """Calculates the n-th Fibonacci number.
 
     Example usage:
@@ -14,4 +14,21 @@ def fibonacci(n: int) -> int:
     >>> fibonacci(10)
     55
     """
-    pass
+    return 0
+
+
+def test() -> None:
+    """Simple self-test for Fibonacci."""
+    cases = {0: 0, 1: 1, 5: 5, 10: 55}
+    for n, expected in cases.items():
+        try:
+            res = fibonacci(n)
+            assert res == expected, f"Failed for n={n}: expected {expected}, got {res}"
+        except AssertionError as e:
+            print(f"❌ {e}")
+            return
+    print("✅ All tests passed!")
+
+
+if __name__ == "__main__":
+    test()

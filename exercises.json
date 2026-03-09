@@ -12,5 +12,19 @@
     "weight": 10,
     "complexity": "Easy",
     "category": "01_basic"
+  },
+  {
+    "slug": "palindrome",
+    "title": "Palindrome",
+    "weight": 15,
+    "complexity": "Easy",
+    "category": "01_basic"
+  },
+  {
+    "slug": "dummy_test",
+    "title": "Dummy Test",
+    "weight": 10,
+    "complexity": "Medium",
+    "category": "01_basic"
   }
 ]
